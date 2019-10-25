@@ -5,3 +5,5 @@ Roulette - CorePython - API Django - VueJS et Fw à définir
 - API Core Django2
 - Livedata avec VueJS et Autres Fw JS
 - Interaction client-side à trouver 
+
+Avancée actuelle sur un core python propre
