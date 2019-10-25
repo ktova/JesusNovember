@@ -91,22 +91,21 @@ class Game():
 
     #Confirmise - Checks if player respects betting rules
     def confirmise(self):
-        self.pxmisebet = float(input())
-        while self.pxmisebet > 0.5:
-            if self.pxmisebet > self.tokens:
-                print(" Thats way too much for your wallet sir ")
-                self.pxmisebet = float(input())
-            else:
-                print("You gambled " + str(self.pxmisebet) + " tokens this round")
-                return self.pxmisebet
-        self.mise(self.pxmisebet)
+        self.misetyper()
+        self.isvalid = self.misevalider(self.pxmisebet)
+        if self.isvalid is True:
+            pass #jsp
+        else:
+            pass #jsp aussi
 
     # Retrieve gambled tokens during the round - has to be optimized for multitype gambling
-    def mise(self, pxmise):
-        if pxmise >= 0.5:
-            self.bet = float(self.bet) - float(self.pxmisebet)
+    def misevalider(self, pmise):
+        if self.tokens - pmise > 0:
+            self.tokens -= pmise
+            return True
         else:
-
+            print("You are not able to gamble any more tokens")
+            return False
 
     ###############################
     ###The Selectnumbr Functions##
@@ -205,6 +204,18 @@ class Game():
             print("You submitted an invalid gamemode, you may try again")
             self.gametyper()
 
+    def pxmisesecurecheck(self, pxmise):
+        if pxmise >= 0.5:
+            if pxmise > self.tokens:
+                print(" Thats way too much for your wallet sir ")
+                self.misetyper()
+            else:
+                print("You gambled " + str(self.pxmisebet) + " tokens this round")
+                return self.pxmisebet
+        else:
+            print("Please respect the minimum betting rule")
+            self.misetyper()
+
     ##############################
     ###The Securetype Functions##
     ############################
@@ -212,6 +223,10 @@ class Game():
     def gametyper(self):
         self.gamepicked = str(input()).lower()
         self.gamesecurecheck(self.gamepicked)
+
+    def misetyper(self):
+        self.pxmisebet = float(input())
+        self.pxmisesecurecheck(self.pxmisebet)
 
     #############################
     ###The Game Menu Functions##
