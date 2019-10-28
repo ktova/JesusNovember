@@ -1,12 +1,5 @@
 #Stored Game datas - must be private - i suck too much to manage this atm - optimized later
 class Datas:
-    #List of every playable numbers from the roulette - equivalent de .append x dans roulettecases
-    rouletteCases = [
-        x for x in range(0, 37)
-    ]
-    #Bonuses value
-    bonuses = [2, 1.625, 1.5, 1.625, 1.75]
-
     modes = ["Single", "Double", "Triple", "Square", "Six", "Half", "Color", "Dozens", "Columns", "Odde"]
 
     #gamesmode
@@ -36,3 +29,9 @@ class Datas:
     l10 = [28, 29, 30]
     l11 = [31, 32, 33]
     l12 = [34, 35, 36]
+
+    #special squares
+    spr1 = [1, 2, 4, 5]
+    spr3 = [2, 3, 5, 6]
+    spr34 = [31, 32, 34, 35]
+    spr36 = [32, 33, 35, 36]
