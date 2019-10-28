@@ -123,6 +123,7 @@ class Game:
         self.ode = Calculator(winop).is_even()
         self.doz = Calculator(winop).dozens()
         self.col = Calculator(winop).column()
+        self.sqr = Calculator(winop).square()
         # getpairs
         # getsquares
         # getextraifforgot
@@ -140,7 +141,8 @@ class Game:
             + str(self.doz)
             + " | "
             + " Column number "
-            + str(self.col)        )
+            + str(self.col) + "| Square : " + str(self.sqr)
+        )
         # print double et squares
 
     ###########################
@@ -153,57 +155,17 @@ class Game:
         self.resultarray['Even'] = self.ode
         self.resultarray['Dozen'] = self.doz
         self.resultarray['Column'] = self.col
+        self.resultarray['Square'] = self.sqr
         print(self.resultarray.items())
 
-    def roundwin(self):
-        """Return win"""
-        self.endround = 1
-        if int(self.multipler) == 2:
-            self.gain = float(self.pxmisebet) * int(self.multipler)
-            self.bet = float(self.bet) + float(self.gain)
-        # Gain for 3x multiplers
-        elif int(self.multipler) == 3:
-            self.gain = float(self.pxmisebet) * float(self.multipler)
-            self.bet = self.bet + self.gain
-        # Gain for 6s
-        elif int(self.multipler) == 6:
-            self.gain = float(self.pxmisebet) * float(self.multipler)
-            self.bet = self.bet + self.gain
-        # Gain for trios
-        elif int(self.multipler) == 12:
-            self.gain = float(self.pxmisebet) * float(self.multipler)
-            self.bet = self.bet + self.gain
-        # Gain for pairs
-        elif int(self.multipler) == 18:
-            self.gain = float(self.pxmisebet) * float(self.multipler)
-            self.bet = self.bet + self.gain
-        # Gain for single numbers 0 included
-        elif int(self.multipler) == 36:
-            self.gain = float(self.pxmisebet) * float(self.multipler)
-            self.bet = self.bet + self.gain
-        else:
-            # Debugg
-            print("multipler: " + str(self.multipler))
-            print("powerbet: " + str(self.powerbet))
-            print("gains: " + str(self.gain))
-            print("Error distributing the gains")
-            return "error invalid win"
-        print("Congrats you won this round !")
-        print("Your new amount of credits is : " + str(self.bet))
+        self.comparearr()
 
-    def roundloss(self):
-        """Return loss"""
-        self.endround = 1
-        print("Unlucky, you did bet on the wrong number. Better luck next time !")
-        print("Your new amount of credits is : " + str(self.bet))
-
-    def roundnul(self):
-        self.endround = 1
-        print(
-            "Unfortunately this round is not a win nor a lose for you, half your bet has been returned to your credits"
-        )
-        self.gain = float(self.pxmisebet) / 2
-        self.bet = self.bet + self.gain
+    def comparearr(self):
+        for i in self.gamblify.items():
+            if i[0] in self.resultarray.items():
+                print(str(i[0] + " - " + i[1]))
+            else:
+                print("no array match")
 
     ######################################
     ###The Results-per-number Functions##
@@ -311,34 +273,74 @@ class Game:
     # 6 Number Picker
 
     # Color Number Picker
+    def colorpicker(self):
+        self.context = 2
+        entercolor = self.colortyper()
+        if entercolor is True:
+            print("You are gambling on color " + str(self.pxcolor))
+            validarray = self.confirmise()
+            if validarray is True:
+                self.addgamble(self.pxcolor, self.tokenmise)
+            else:
+                pass
+        else:
+            self.colorpicker()
 
     # Half Number Picker
-
-    # Dozens Number Picker
-
-    # Columns Number Picker
+    def halfpicker(self):
+        self.context = 2
+        enterhalf = self.halftyper()
+        if enterhalf is True:
+            print("You are gambling on half " + str(self.pxhalf))
+            validarray = self.confirmise()
+            if validarray is True:
+                self.addgamble(self.pxhalf, self.tokenmise)
+            else:
+                pass
+        else:
+            self.halfpicker()
 
     # Odd-Even Number Picker
-
-    # Bet Multiplicator Function
-    """def multatr(self, context):
-        if context == "singlenumber":
-            self.multipler = 36.0
-        elif context == "doublenumers":
-            self.multipler = 18.0
-        elif context == "trionumbers":
-            self.multipler = 12.0
-        elif context == "square":
-            self.multipler = 9.0
-        elif context == "sixnumbers":
-            self.multipler = 6.0
-        elif context in ("dozens, columns"):
-            self.multipler = 3.0
-        elif context in ("half, color, oddeven"):
-            self.multipler = 2.0
+    def oddevenpicker(self):
+        self.context = 2
+        enterodev = self.odevtyper()
+        if enterodev is True:
+            print("You are gambling on half " + str(self.pxodev))
+            validarray = self.confirmise()
+            if validarray is True:
+                self.addgamble(self.pxodev, self.tokenmise)
+            else:
+                pass
         else:
-            return KeyError
-        return self.multipler"""
+            self.oddevenpicker()
+
+    # Dozens Number Picker
+    def dozenpicker(self):
+        self.context = 3
+        enterdozen = self.dozentyper()
+        if enterdozen is True:
+            print("You are gambling on half " + str(self.pxdoz))
+            validarray = self.confirmise()
+            if validarray is True:
+                self.addgamble(self.pxdoz, self.tokenmise)
+            else:
+                pass
+        else:
+            self.dozenpicker()
+
+    # Columns Number Picker
+    def columnpicker(self):
+        self.context = 3
+        entercolumn = self.columntyper()
+        if entercolumn is True:
+            print("You are gambling on half " + str(self.pxcol))
+            validarray = self.confirmise()
+            if validarray is True:
+                self.addgamble(self.pxcol, self.tokenmise)
+            else:
+                pass
+        else:
+            self.columnpicker()
 
     # Add a gamble dict key
     def addgamble(self, number, bet):
@@ -410,6 +412,17 @@ class Game:
                 return False
         except ValueError:
             print("Please enter a number as value")
+
+    def colortyper(self):
+        self.pxcolor = str(input("Which color do you want to gamble on [red|black]?")).lower()
+        issecure = self.colorsecurecheck(self.pxcolor)
+        if issecure is True:
+            return True
+        else:
+            return False
+
+    def halftyper(self):
+        pass
 
     #############################
     ###The Game Menu Functions##

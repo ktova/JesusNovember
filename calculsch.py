@@ -68,7 +68,7 @@ class Calculator:
                 self.sqr1 = Datas.spr36
                 return self.sqr1
             else:
-                if self.number in f1:
+                if self.number in Datas.f1:
                     self.sqr1 = [self.number]
                     self.sqr1.append(self.number - 2)
                     self.sqr1.append(self.number - 3)
@@ -78,7 +78,7 @@ class Calculator:
                     self.sqr2.append(self.number + 3)
                     self.sqr2.append(self.number + 4)
                     return self.sqr1, self.sqr2
-                elif self.number in f2:
+                elif self.number in Datas.f2:
                     self.sqr1 = [self.number]
                     self.sqr1.append(self.number - 1)
                     self.sqr1.append(self.number + 2)
@@ -88,7 +88,7 @@ class Calculator:
                     self.sqr2.append(self.number + 3)
                     self.sqr2.append(self.number + 4)
                     return self.sqr1, self.sqr2
-                elif self in f3:
+                elif self in Datas.f3:
                     self.sqr1 = [self.number]
                     self.sqr1.append(self.number - 1)
                     self.sqr1.append(self.number - 3)
