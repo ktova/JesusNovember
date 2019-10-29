@@ -161,16 +161,19 @@ class Game:
         self.resultarray["Dozen"] = self.doz
         self.resultarray["Column"] = self.col
         self.resultarray["Square"] = self.sqr
-        print(self.resultarray.items())
-
         self.comparearr()
 
     def comparearr(self):
-        for i in self.gamblify.items():
-            if i[0] in self.resultarray.items():
-                print(str(i[0] + " - " + i[1]))
-            else:
-                print("no array match")
+        print(self.resultarray.items())
+        print(self.gamblify.items())
+        for i in self.resultarray.items():
+            for l in self.gamblify.items():
+                if l[0] in i:
+                    gains = l[1][0]*l[1][1]
+                    self.tokens += gains
+                    print(str(i[0]) + " - " + str(l[0]) + " - " + str(l[1][0]) + "-" + str(l[1][1]) )
+                else:
+                    pass
 
     ######################################
     ###The Results-per-number Functions##
@@ -265,7 +268,7 @@ class Game:
             print("You are gambling on color " + str(self.pxcolor))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxcolor, self.tokenmise)
+                self.addgamble(self.pxcolor, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -279,7 +282,7 @@ class Game:
             print("You are gambling on half " + str(self.pxhalf))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxhalf, self.tokenmise)
+                self.addgamble(self.pxhalf, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -293,7 +296,7 @@ class Game:
             print("You are gambling on " + str(self.pxodev) + " numbers")
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxodev, self.tokenmise)
+                self.addgamble(self.pxodev, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -308,7 +311,7 @@ class Game:
             validarray = self.confirmise()
             if validarray is True:
                 self.pxdoz = "d" + str(self.pxdoz)
-                self.addgamble(self.pxdoz, self.tokenmise)
+                self.addgamble(self.pxdoz, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -323,7 +326,7 @@ class Game:
             validarray = self.confirmise()
             if validarray is True:
                 self.pxcol = "c" + str(self.pxcol)
-                self.addgamble(self.pxcol, self.tokenmise)
+                self.addgamble(self.pxcol, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -337,7 +340,7 @@ class Game:
             print("You are gambling on number " + str(self.pxnumber))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxnumber, self.tokenmise)
+                self.addgamble(self.pxnumber, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -352,8 +355,8 @@ class Game:
     # 6 Number Picker
 
     # Add a gamble dict key
-    def addgamble(self, number, bet):
-        self.gamblify[number] = bet
+    def addgamble(self, number, bet, multipler):
+        self.gamblify[number] = bet, multipler
 
     ###############################
     ###The Securecheck Functions##
@@ -538,6 +541,9 @@ class Game:
         print(
             "The playable formats are listed bellow [Type format's number or name]: "
         )
+        print(
+            "Warning : double / six numbers gambles are not working"
+        )
 
     # Game infos & MenuLater
     def gameinfo(self):
@@ -545,7 +551,7 @@ class Game:
             "--------------------------------------------------------------------------------------------------"
         )
         print(
-            "[1] Single (1:36) | [2] Double (1:18) | [3] Triple (1:12) | [4] Square (1:9) | [5] Six (1:6) "
+            "[1] Single (1:36) | [x] Double (1:18) | [x] Triple (1:12) | [4] Square (1:9) | [x] Six (1:6) "
         )
         print(
             "[6] Dozen (1:3) | [7] Column (1:3) | [8] Half (1:2) | [9] Even/Odd (1:2) | [0] Color (1:2) "
