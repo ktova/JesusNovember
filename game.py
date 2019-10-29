@@ -1,11 +1,8 @@
 import random
-import re
 from calculsch import Calculator
 from datastock import Datas
 
-
 # The Game Class Process
-
 
 class Game:
 
@@ -14,6 +11,7 @@ class Game:
     #########################################
 
     def __init__(self, player):
+        self.state = 1
         self.round = 0
         self.minbet = 1
         self.tokens = 100
@@ -21,7 +19,7 @@ class Game:
         self.numberlist = [x for x in range(0, 37)]
         self.playername = player
 
-    def getTokens(selfs):
+    def getTokens(self):
         print("Votre nombre de jetons est de : ")
         return self.tokens
 
@@ -44,15 +42,16 @@ class Game:
 
     # Starts the game
     def roundSet(self):
-        self.startRound()
-        self.extendGame()
-        self.setvnumber()
-        self.roundresult(self.winoperator)
-        if self.tokens == 0:
-            self.outofstock()
-        else:
-            pass
-        self.round += 1
+        while self.state == 1:
+            self.round += 1
+            self.startRound()
+            self.extendGame()
+            self.setvnumber()
+            self.roundresult(self.winoperator)
+            if self.tokens == 0:
+                self.outofstock()
+            else:
+                pass
 
     # Starting round
     def startRound(self):
@@ -68,6 +67,7 @@ class Game:
         print(
             "You are running out of tokens, the game is over until you inject more pa$$i0n"
         )
+        self.state = 0
         return exit()
 
     # Pick a format
@@ -447,12 +447,13 @@ class Game:
             " –––––––––––––––––––––––––––––––––––––––––––––––––--––––––––––––––––––––––––                   "
         )
         print("")
+        print (
+            "The playable formats are listed bellow [Type x number to gamble on x format]: ")
 
     # Game infos & MenuLater
     def gameinfo(self):
-        print(
-            "The playable formats are listed bellow [Type x number to gamble on x format]: ")
-        print(" ")
+        print (
+            "--------------------------------------------------------------------------------------------------")
         print(
             "[1] Single (1:36) | [2] Double (1:18) | [3] Triple (1:12) | [4] Square (1:9) | [5] Six (1:6) "
         )
