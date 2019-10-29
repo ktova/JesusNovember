@@ -4,6 +4,7 @@ from datastock import Datas
 
 # The Game Class Process
 
+
 class Game:
 
     #########################################
@@ -90,7 +91,9 @@ class Game:
 
     # Chose another format // Not released yet
     def continueur(self):
-        self.continuer = str(input("Do you want to gamble on anything else ? (y/n) ")).lower()
+        self.continuer = str(
+            input("Do you want to gamble on anything else ? (y/n) ")
+        ).lower()
         if self.continuer == "y":
             return True
         else:
@@ -141,7 +144,9 @@ class Game:
             + str(self.doz)
             + " | "
             + " Column number "
-            + str(self.col) + "| Square : " + str(self.sqr)
+            + str(self.col)
+            + "| Square : "
+            + str(self.sqr)
         )
         # print double et squares
 
@@ -151,11 +156,11 @@ class Game:
 
     def roundresult(self, vnumber):
         self.resultarray = {}
-        self.resultarray['Color'] = self.co
-        self.resultarray['Even'] = self.ode
-        self.resultarray['Dozen'] = self.doz
-        self.resultarray['Column'] = self.col
-        self.resultarray['Square'] = self.sqr
+        self.resultarray["Color"] = self.co
+        self.resultarray["Even"] = self.ode
+        self.resultarray["Dozen"] = self.doz
+        self.resultarray["Column"] = self.col
+        self.resultarray["Square"] = self.sqr
         print(self.resultarray.items())
 
         self.comparearr()
@@ -202,7 +207,9 @@ class Game:
         if isable is True:
             isvalid = self.misevalider(self.pxmisebet)
             if isvalid is True:
-                print("You Gambled " + str(self.pxmisebet) + " token(s)") # Django : {[self.pxnumber]}
+                print(
+                    "You Gambled " + str(self.pxmisebet) + " token(s)"
+                )  # Django : {[self.pxnumber]}
                 self.tokenmise = self.pxmisebet
                 return True
             else:
@@ -250,28 +257,6 @@ class Game:
 
     # Selects the player's number out of the selected format
 
-    # 1 Number Picker
-    def singlenumpicker(self):
-        self.context = 36
-        enterpxnumber = self.pxnumbertyper()
-        if enterpxnumber is True:
-            print("You are gambling on number " + str(self.pxnumber))
-            validarray = self.confirmise()
-            if validarray is True:
-                self.addgamble(self.pxnumber, self.tokenmise)
-            else:
-                pass
-        else:
-            self.singlenumpicker()
-
-    # 2 Number Picker
-
-    # 3 Number Picker
-
-    # 4 Number Picker
-
-    # 6 Number Picker
-
     # Color Number Picker
     def colorpicker(self):
         self.context = 2
@@ -305,7 +290,7 @@ class Game:
         self.context = 2
         enterodev = self.odevtyper()
         if enterodev is True:
-            print("You are gambling on half " + str(self.pxodev))
+            print("You are gambling on " + str(self.pxodev) + " numbers")
             validarray = self.confirmise()
             if validarray is True:
                 self.addgamble(self.pxodev, self.tokenmise)
@@ -319,9 +304,10 @@ class Game:
         self.context = 3
         enterdozen = self.dozentyper()
         if enterdozen is True:
-            print("You are gambling on half " + str(self.pxdoz))
+            print("You are gambling on dozen n°" + str(self.pxdoz))
             validarray = self.confirmise()
             if validarray is True:
+                self.pxdoz = "d" + str(self.pxdoz)
                 self.addgamble(self.pxdoz, self.tokenmise)
             else:
                 pass
@@ -333,14 +319,37 @@ class Game:
         self.context = 3
         entercolumn = self.columntyper()
         if entercolumn is True:
-            print("You are gambling on half " + str(self.pxcol))
+            print("You are gambling on column n°" + str(self.pxcol))
             validarray = self.confirmise()
             if validarray is True:
+                self.pxcol = "c" + str(self.pxcol)
                 self.addgamble(self.pxcol, self.tokenmise)
             else:
                 pass
         else:
             self.columnpicker()
+
+    # 1 Number Picker
+    def singlenumpicker(self):
+        self.context = 36
+        enterpxnumber = self.pxnumbertyper()
+        if enterpxnumber is True:
+            print("You are gambling on number " + str(self.pxnumber))
+            validarray = self.confirmise()
+            if validarray is True:
+                self.addgamble(self.pxnumber, self.tokenmise)
+            else:
+                pass
+        else:
+            self.singlenumpicker()
+
+    # 2 Number Picker
+
+    # 3 Number Picker
+
+    # 4 Number Picker
+
+    # 6 Number Picker
 
     # Add a gamble dict key
     def addgamble(self, number, bet):
@@ -379,6 +388,41 @@ class Game:
             print("Please enter a number between 0 and 36")
             return False
 
+    def colorsecurecheck(self, pxcolor):
+        if pxcolor in {"red", "black"}:
+            return True
+        else:
+            print("Please enter a valid color")
+            return False
+
+    def halfsecurecheck(self, pxhalf):
+        if pxhalf in {"first","last"}:
+            return True
+        else:
+            print("Please enter a valid half")
+            return False
+
+    def odevsecurechecker(self, pxodev):
+        if pxodev in {"odd", "even"}:
+            return True
+        else:
+            print("Please enter a valid value")
+            return False
+
+    def dozensecurechecker(self, pxnumber):
+        if 0 < pxnumber < 4:
+            return True
+        else:
+            print("Please enter a valid dozen")
+            return False
+
+    def columnsecurechecker(self, pxnumber):
+        if 0 < pxnumber < 4:
+            return True
+        else:
+            print("Please enter a valid column")
+            return False
+
     ##############################
     ###The Securetype Functions##
     ############################
@@ -414,7 +458,9 @@ class Game:
             print("Please enter a number as value")
 
     def colortyper(self):
-        self.pxcolor = str(input("Which color do you want to gamble on [red|black]?")).lower()
+        self.pxcolor = str(
+            input("Which color do you want to gamble on [red|black]?")
+        ).lower()
         issecure = self.colorsecurecheck(self.pxcolor)
         if issecure is True:
             return True
@@ -422,7 +468,49 @@ class Game:
             return False
 
     def halftyper(self):
-        pass
+        self.pxhalf = str(
+            input(
+                "Do you want to gamble on the first (1-18) half or the last half (19-36) ?"
+            )
+        ).lower()
+        issecure = self.halfsecurecheck(self.pxhalf)
+        if issecure is True:
+            return True
+        else:
+            print("Please enter a valid half [first - last]")
+            return False
+
+    def odevtyper(self):
+        self.pxodev = str(
+            input("Do you want to bet on an odd number or an even one ?")
+        ).lower()
+        issecure = self.odevsecurechecker(self.pxodev)
+        if issecure is True:
+            return True
+        else:
+            return False
+
+    def dozentyper(self):
+        try:
+            self.pxdoz = int(input("Which dozen do you want to gamble on ?"))
+            issecure = self.dozensecurechecker(self.pxdoz)
+            if issecure is True:
+                return True
+            else:
+                return False
+        except ValueError:
+            print("Please enter a valid dozen [1 - 2 - 3]")
+
+    def columntyper(self):
+        try:
+            self.pxcol = int(input("Which column do you want to gamble on ?"))
+            issecure = self.columnsecurechecker(self.pxcol)
+            if issecure is True:
+                return True
+            else:
+                return False
+        except ValueError:
+            print("Please enter a valid column [1 - 2 - 3]")
 
     #############################
     ###The Game Menu Functions##
@@ -447,33 +535,47 @@ class Game:
             " –––––––––––––––––––––––––––––––––––––––––––––––––--––––––––––––––––––––––––                   "
         )
         print("")
-        print (
-            "The playable formats are listed bellow [Type x number to gamble on x format]: ")
+        print(
+            "The playable formats are listed bellow [Type format's number or name]: "
+        )
 
     # Game infos & MenuLater
     def gameinfo(self):
-        print (
-            "--------------------------------------------------------------------------------------------------")
+        print(
+            "--------------------------------------------------------------------------------------------------"
+        )
         print(
             "[1] Single (1:36) | [2] Double (1:18) | [3] Triple (1:12) | [4] Square (1:9) | [5] Six (1:6) "
         )
         print(
-            "[6] Dozen (1:3) | [7] Column (1:3) | [8] Half (1:2) | [9] Even/Odd (1:2) | [0] Color (1:2) ")
+            "[6] Dozen (1:3) | [7] Column (1:3) | [8] Half (1:2) | [9] Even/Odd (1:2) | [0] Color (1:2) "
+        )
         print(" ")
-        print(str(self.playername) + "'s game infos - Round : " + str(self.round) + " - Current Tokens : " + str(self.tokens) + " - Minimum Bet : " + str(self.minbet))
         print(
-            "--------------------------------------------------------------------------------------------------")
+            str(self.playername)
+            + "'s game infos - Round : "
+            + str(self.round)
+            + " - Current Tokens : "
+            + str(self.tokens)
+            + " - Minimum Bet : "
+            + str(self.minbet)
+        )
+        print(
+            "--------------------------------------------------------------------------------------------------"
+        )
 
     # Ingame infos about current gambles
     def gamblesinfo(self):
         print(
-            "--------------------------------------------------------------------------------------------------")
+            "--------------------------------------------------------------------------------------------------"
+        )
         print("Current token stock : " + str(self.tokens))
         print("Current gambled values : ")
         for i in self.gamblify.items():
-            print("Val: "+ str(i[0]) + " - Bet: " + str(i[1]))
+            print("Val: " + str(i[0]) + " - Bet: " + str(i[1]))
         print(
-            "--------------------------------------------------------------------------------------------------")
+            "--------------------------------------------------------------------------------------------------"
+        )
 
     ################################ End of Game class
 
