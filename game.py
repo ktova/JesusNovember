@@ -347,12 +347,46 @@ class Game:
             self.singlenumpicker()
 
     # 2 Number Picker
-
-    # 3 Number Picker
+    def pairpicker(self):
+        self.context = 18
+        enterpxnumber = self.pairtyper()
+        if enterpxnumber is True:
+            print("You are gambling on pair " + str(self.pxpair))
+            validarray = self.confirmise()
+            if validarray is True:
+                self.addgamble(self.pxpair, self.tokenmise, self.context)
+            else:
+                pass
+        else:
+            self.pairpicker()
 
     # 4 Number Picker
+    def squarepicker(self):
+        self.context = 9
+        enterpxnumber = self.squaretyper()
+        if enterpxnumber is True:
+            print("You are gambling on square " + str(self.pxsquare))
+            validarray = self.confirmise()
+            if validarray is True:
+                self.addgamble(self.pxsquare, self.tokenmise, self.context)
+            else:
+                pass
+        else:
+            self.squarepicker()
 
     # 6 Number Picker
+    def sixtpicker(self):
+        self.context = 6
+        enterpxnumber = self.sixtyper()
+        if enterpxnumber is True:
+            print("You are gambling on sixs " + str(self.pxsixt))
+            validarray = self.confirmise()
+            if validarray is True:
+                self.addgamble(self.pxsit, self.tokenmise, self.context)
+            else:
+                pass
+        else:
+            self.sixtpicker()
 
     # Add a gamble dict key
     def addgamble(self, number, bet, multipler):
@@ -425,6 +459,15 @@ class Game:
         else:
             print("Please enter a valid column")
             return False
+
+    def pairsecurechecker(self, pxnumber):
+        pass
+
+    def squaresecurechecker(self, pxnumber):
+        pass
+
+    def sixsecurechecker(self, pxnumber):
+        pass
 
     ##############################
     ###The Securetype Functions##
@@ -514,6 +557,39 @@ class Game:
                 return False
         except ValueError:
             print("Please enter a valid column [1 - 2 - 3]")
+
+    def pairtyper(self):
+        try:
+            self.pxpair = int(input("Which pair do you want to gamble on e.g[x,y]? Type 1 number if you need guidance"))
+            issecure = self.pairsecurechecker(self.pxpair)
+            if issecure is True:
+                return True
+            else:
+                return False
+        except ValueError:
+            print("Please enter a valid pair or number")
+
+    def squaretyper(self):
+        try:
+            self.pxsquare = int(input("Which square do you want to gamble on e.g[a,b,c,d]? Type 1 number if you need guidance"))
+            issecure = self.squaresecurechecker(self.pxsquare)
+            if issecure is True:
+                return True
+            else:
+                return False
+        except ValueError:
+            print("Please enter a valid square or number")
+
+    def sixtyper(self):
+        try:
+            self.pxsixt = int(input("Which pair do you want to gamble on e.g[e,f,g,h,i,j]? Type 1 number if you need guidance"))
+            issecure = self.sixsecurechecker(self.pxsixt)
+            if issecure is True:
+                return True
+            else:
+                return False
+        except ValueError:
+            print("Please enter a valid six or number")
 
     #############################
     ###The Game Menu Functions##

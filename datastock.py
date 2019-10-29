@@ -4,7 +4,7 @@ class Datas:
 
     #gamesmode
     games = (
-        "1, 2, 3, 4, 5, 6, 7, 8, 9, single, double, triple, six, square, sixt, dozen, even, odd, column, row, half, color")
+        "1, 2, 3, 4, 5, 6, 7, 8, 9, 0, single, double, triple, six, square, sixt, dozen, even, odd, column, row, half, color")
 
     #colss
     f1 = (1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34)
@@ -35,3 +35,18 @@ class Datas:
     spr3 = [2, 3, 5, 6]
     spr34 = [31, 32, 34, 35]
     spr36 = [32, 33, 35, 36]
+
+    #special pairs
+    pr1a = [1, 2]
+    pr1b = [1, 4]
+    pr3a = [2, 3]
+    pr3b = [3, 6]
+    pr34a = [31, 34]
+    pr34b = [34, 35]
+    pr36a = [33, 36]
+    pr36b = [35, 36]
+    pr3sa = [4, 7, 10, 13, 16, 19, 22, 25, 28, 31]
+    pr3sb = [6, 9, 12, 15, 18, 21, 24, 27, 30, 33]
+    pr4s = [5, 8, 11, 14, 17, 20, 23, 26, 29, 32]
+
+    #special six
