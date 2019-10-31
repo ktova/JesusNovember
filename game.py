@@ -457,8 +457,6 @@ class Game:
     def squaresecurechecker(self, pxstring):
         arg = pxstring[0]
         validpair = Calculator(arg).square()
-        print(validpair)
-        print(pxstring)
         if pxstring in validpair:
             return True
         else:
@@ -468,8 +466,6 @@ class Game:
     def sixsecurechecker(self, pxstring):
         arg = pxstring[0]
         validpair = Calculator(arg).six()
-        print(validpair)
-        print(pxstring)
         if pxstring in validpair:
             return True
         else:

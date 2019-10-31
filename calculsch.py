@@ -148,9 +148,9 @@ class Calculator:
             return 0
         else:
             if self.number <= 3:
-                sxt1 = {1, 2, 3, 4, 5, 6}
+                sxt1 = [1, 2, 3, 4, 5, 6]
             elif self.number >= 34:
-                sxt1 = {31, 32, 33, 34, 35, 36}
+                sxt1 = [31, 32, 33, 34, 35, 36]
             else:
                 if self.number % 3 == 1:
                     sxt1 = [self.rm3,self.rm2,self.rm1,self.number,self.ra1,self.ra2]
