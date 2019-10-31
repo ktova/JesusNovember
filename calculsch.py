@@ -1,9 +1,17 @@
-from datastock import Datas
-
 class Calculator:
 
     def __init__(self, number):
         self.number = number
+        self.rm1 = number - 1
+        self.rm2 = number - 2
+        self.rm3 = number - 3
+        self.rm4 = number - 4
+        self.rm5 = number - 5
+        self.ra1 = number + 1
+        self.ra2 = number + 2
+        self.ra3 = number + 3
+        self.ra4 = number + 4
+        self.ra5 = number + 5
 
     def color(self):
         if self.number == 0:
@@ -25,6 +33,25 @@ class Calculator:
             else:
                 return "black"
 
+    def is_even(self):
+        if self.number == 0:
+            return 0
+        else:
+            if self.number % 2 == 0:
+                return "even"
+            if self.number % 2 == 1:
+                return "odd"
+            #return self.number % 2 == 0 - production record
+
+    def half(self):
+        if self.number == 0:
+            return 0
+        else:
+            if self.number < 19:
+                return "first"
+            if self.number > 18:
+                return "last"
+
     def column(self):
         if self.number == 0:
             return 0
@@ -34,12 +61,6 @@ class Calculator:
                 return 3
             else:
                 return result_of_division
-
-    def is_even(self):
-        if self.number == 0:
-            return 0
-        else:
-            return self.number % 2 == 0
 
     def dozens(self):
         if self.number == 0:
@@ -51,50 +72,93 @@ class Calculator:
         elif self.number >= 25 and self.number <= 36:
             return 3
 
-    def square(self):
+    def pair(self):
+        spr1 = []
+        spr2 = []
+        spr3 = []
+        spr4 = []
         if self.number == 0:
             return 0
         else:
             if self.number == 1:
-                self.sqr1 = Datas.spr1
-                return self.sqr1
+                spr1 = [1, 2]
+                spr2 = [1, 4]
+            elif self.number == 2:
+                spr1 = [1, 2]
+                spr2 = [2, 3]
+                spr3 = [2, 5]
             elif self.number == 3:
-                self.sqr1 = Datas.spr3
-                return self.sqr1
+                spr1 = [2, 3]
+                spr2 = [3, 6]
             elif self.number == 34:
-                self.sqr1 = Datas.spr34
-                return self.sqr1
+                spr1 = [31, 34]
+                spr2 = [34, 35]
+            elif self.number == 35:
+                spr1 = [32, 35]
+                spr2 = [34, 35]
+                spr3 = [35, 36]
             elif self.number == 36:
-                self.sqr1 = Datas.spr36
-                return self.sqr1
+                spr1 = [33, 36]
+                spr2 = [35, 36]
+            elif self.number % 3 == 0:
+                spr1 = [self.rm3, self.number]
+                spr2 = [self.rm1, self.number]
+                spr3 = [self.number, self.ra3]
+            elif self.number % 3 == 1:
+                spr1 = [self.rm3, self.number]
+                spr2 = [self.number, self.ra1]
+                spr3 = [self.number, self.ra3]
+            elif self.number % 3 == 2:
+                spr1 = [self.rm3, self.number]
+                spr2 = [self.rm1, self.number]
+                spr3 = [self.number, self.ra1]
+                spr4 = [self.number, self.ra3]
+            return spr1, spr2, spr3, spr4
+
+    def square(self):
+        sqr1 = []
+        sqr2 = []
+        if self.number == 0:
+            return 0
+        else:
+            if self.number == 1:
+                self.sqr1 = [1, 2, 4, 5]
+            elif self.number == 3:
+                self.sqr1 = [2, 3, 5, 6]
+            elif self.number == 34:
+                self.sqr1 = [31, 32, 34, 35]
+            elif self.number == 36:
+                self.sqr1 = [32, 33, 35, 36]
             else:
-                if self.number in Datas.f1:
-                    self.sqr1 = [self.number]
-                    self.sqr1.append(self.number - 2)
-                    self.sqr1.append(self.number - 3)
-                    self.sqr1.append(self.number + 1)
-                    self.sqr2 = [self.number]
-                    self.sqr2.append(self.number + 1)
-                    self.sqr2.append(self.number + 3)
-                    self.sqr2.append(self.number + 4)
-                    return self.sqr1, self.sqr2
-                elif self.number in Datas.f2:
-                    self.sqr1 = [self.number]
-                    self.sqr1.append(self.number - 1)
-                    self.sqr1.append(self.number + 2)
-                    self.sqr1.append(self.number + 3)
-                    self.sqr2 = [self.number]
-                    self.sqr2.append(self.number + 1)
-                    self.sqr2.append(self.number + 3)
-                    self.sqr2.append(self.number + 4)
-                    return self.sqr1, self.sqr2
-                elif self in Datas.f3:
-                    self.sqr1 = [self.number]
-                    self.sqr1.append(self.number - 1)
-                    self.sqr1.append(self.number - 3)
-                    self.sqr1.append(self.number + 4)
-                    self.sqr2 = [self.number]
-                    self.sqr2.append(self.number - 1)
-                    self.sqr2.append(self.number + 2)
-                    self.sqr2.append(self.number + 3)
-                    return self.sqr1, self.sqr2
+                if self.number % 3 == 1:
+                    sqr1 = [self.rm3,self.rm2,self.number,self.ra1]
+                    sqr2 = [self.number,self.ra1,self.ra2,self.ra3]
+                elif self.number % 3 == 2:
+                    sqr1 = [self.rm1,self.number,self.ra2,self.ra3]
+                    sqr2 = [self.number,self.ra1,self.ra3,self.ra4]
+                elif self.number % 3 == 0:
+                    sqr1 = [self.rm3,self.rm1,self.number,self.ra4]
+                    sqr2 = [self.rm1,self.number,self.ra2,self.ra3]
+            return sqr1, sqr2
+
+    def six(self):
+        sxt1 = []
+        sxt2 = []
+        if self.number == 0:
+            return 0
+        else:
+            if self.number <= 3:
+                sxt1 = {1, 2, 3, 4, 5, 6}
+            elif self.number >= 34:
+                sxt1 = {31, 32, 33, 34, 35, 36}
+            else:
+                if self.number % 3 == 1:
+                    sxt1 = [self.rm3,self.rm2,self.rm1,self.number,self.ra1,self.ra2]
+                    sxt2 = [self.number,self.ra1,self.ra2,self.ra3,self.ra4,self.ra5]
+                elif self.number % 3 == 2:
+                    sxt1 = [self.rm4,self.rm3,self.rm2,self.rm1,self.number,self.ra1]
+                    sxt2 = [self.rm1,self.number,self.ra1,self.ra2,self.ra3,self.ra4]
+                elif self.number % 3 == 0:
+                    sxt1 = [self.rm5,self.rm4,self.rm3,self.rm2,self.rm1,self.number]
+                    sxt2 = [self.rm2,self.rm1,self.number,self.ra1,self.ra2,self.ra3]
+            return sxt1, sxt2

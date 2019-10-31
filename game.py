@@ -122,14 +122,15 @@ class Game:
         self.winopinfo(self.winoperator)
 
     def numberproperties(self, winop):
+        self.winop = winop
         self.co = Calculator(winop).color()
         self.ode = Calculator(winop).is_even()
+        self.alf = Calculator(winop).half()
         self.doz = Calculator(winop).dozens()
         self.col = Calculator(winop).column()
+        self.spr = Calculator(winop).pair()
         self.sqr = Calculator(winop).square()
-        # getpairs
-        # getsquares
-        # getextraifforgot
+        self.sxt = Calculator(winop).six()
 
     def winopinfo(self, winop):
         print("The winning number is : " + str(winop))
@@ -140,13 +141,20 @@ class Game:
             + "Even : "
             + str(self.ode)
             + " | "
+            + "Half : "
+            + str(self.alf)
+            + " | "
             + " Dozen number "
             + str(self.doz)
             + " | "
             + " Column number "
             + str(self.col)
-            + "| Square : "
+            + "| Pairs : "
+            + str(self.spr)
+            + "| Square(s) : "
             + str(self.sqr)
+            + "| Six(s) : "
+            + str(self.sxt)
         )
         # print double et squares
 
@@ -156,11 +164,15 @@ class Game:
 
     def roundresult(self, vnumber):
         self.resultarray = {}
+        self.resultarray["Number"] = self.winop
         self.resultarray["Color"] = self.co
         self.resultarray["Even"] = self.ode
+        self.resultarray["Half"] = self.alf
         self.resultarray["Dozen"] = self.doz
         self.resultarray["Column"] = self.col
+        self.resultarray["Pairs"] = self.spr
         self.resultarray["Square"] = self.sqr
+        self.resultarray["Six"] = self.sxt
         self.comparearr()
 
     def comparearr(self):
@@ -174,31 +186,6 @@ class Game:
                     print(str(i[0]) + " - " + str(l[0]) + " - " + str(l[1][0]) + "-" + str(l[1][1]) )
                 else:
                     pass
-
-    ######################################
-    ###The Results-per-number Functions##
-    # bien rajouter le lien pour calcluer un gain total
-    ####################################
-
-    def numberissue(self, context):
-        if context == "singlenumbers":
-            self.singleissue()
-        elif context == "doublenumbers":
-            self.doubleissue()
-        elif context == "trionumbers":
-            self.tripleissue()
-        elif context == "sixnumbers":
-            self.sixissue()
-        elif context == "dozens":
-            self.dozensissue()
-        elif context == "columns":
-            self.columnissue()
-        elif context == "half":
-            self.halfissue()
-        elif context == "color":
-            self.colorissue()
-        elif context == "oddeven":
-            self.odevissue()
 
     #############################
     ###The BetManage Functions##
@@ -241,13 +228,11 @@ class Game:
         elif choice in ("single, 1"):
             self.singlenumpicker()
         elif choice in ("double, 2"):
-            self.doublenumpicker()
-        elif choice in ("triple, 3"):
-            self.trionumpicker()
+            self.pairpicker()
         elif choice in ("square, 4"):
-            print("Sorry squares are unavailable rn")
+            self.squarepicker()
         elif choice in ("six, 5"):
-            self.sixnumpicker()
+            self.sixtpicker()
         elif choice in ("dozen, 6"):
             self.dozenpicker()
         elif choice in ("column, 7"):
@@ -365,10 +350,10 @@ class Game:
         self.context = 9
         enterpxnumber = self.squaretyper()
         if enterpxnumber is True:
-            print("You are gambling on square " + str(self.pxsquare))
+            print("You are gambling on square " + str(self.square))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxsquare, self.tokenmise, self.context)
+                self.addgamble(self.square, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -379,10 +364,10 @@ class Game:
         self.context = 6
         enterpxnumber = self.sixtyper()
         if enterpxnumber is True:
-            print("You are gambling on sixs " + str(self.pxsixt))
+            print("You are gambling on sixs " + str(self.six))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxsit, self.tokenmise, self.context)
+                self.addgamble(self.six, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -460,14 +445,36 @@ class Game:
             print("Please enter a valid column")
             return False
 
-    def pairsecurechecker(self, pxnumber):
-        pass
+    def pairsecurechecker(self, pxstring):
+        arg = pxstring[0]
+        validpair = Calculator(arg).pair()
+        if pxstring in validpair:
+            return True
+        else:
+            print("Please enter a valid pair")
+            return False
 
-    def squaresecurechecker(self, pxnumber):
-        pass
+    def squaresecurechecker(self, pxstring):
+        arg = pxstring[0]
+        validpair = Calculator(arg).square()
+        print(validpair)
+        print(pxstring)
+        if pxstring in validpair:
+            return True
+        else:
+            print("Please enter a valid square")
+            return False
 
-    def sixsecurechecker(self, pxnumber):
-        pass
+    def sixsecurechecker(self, pxstring):
+        arg = pxstring[0]
+        validpair = Calculator(arg).six()
+        print(validpair)
+        print(pxstring)
+        if pxstring in validpair:
+            return True
+        else:
+            print("Please enter a valid six")
+            return False
 
     ##############################
     ###The Securetype Functions##
@@ -559,8 +566,13 @@ class Game:
             print("Please enter a valid column [1 - 2 - 3]")
 
     def pairtyper(self):
+        self.pxpair = []
+        # self.gamehelper()
         try:
-            self.pxpair = int(input("Which pair do you want to gamble on e.g[x,y]? Type 1 number if you need guidance"))
+            pairnum1 = int(input("Which pair do you want to gamble on e.g[1,2]? Type the lowest number : "))
+            pairnum2 = int(input("Now Type the highest number : "))
+            self.pxpair.append(pairnum1)
+            self.pxpair.append(pairnum2)
             issecure = self.pairsecurechecker(self.pxpair)
             if issecure is True:
                 return True
@@ -570,9 +582,18 @@ class Game:
             print("Please enter a valid pair or number")
 
     def squaretyper(self):
+        self.square = []
+        # self.gamehelper()
         try:
-            self.pxsquare = int(input("Which square do you want to gamble on e.g[a,b,c,d]? Type 1 number if you need guidance"))
-            issecure = self.squaresecurechecker(self.pxsquare)
+            sqnum1 = int(input("Which square do you want to gamble on e.g[4,5,7,8]? Type the lowest number : "))
+            sqnum2 = int(input("Type the second lowest number : "))
+            sqnum3 = int(input("Type the second highest number : "))
+            sqnum4 = int(input("Type the highest number : "))
+            self.square.append(sqnum1)
+            self.square.append(sqnum2)
+            self.square.append(sqnum3)
+            self.square.append(sqnum4)
+            issecure = self.squaresecurechecker(self.square)
             if issecure is True:
                 return True
             else:
@@ -581,9 +602,22 @@ class Game:
             print("Please enter a valid square or number")
 
     def sixtyper(self):
+        self.six = []
+        # self.gamehelper()
         try:
-            self.pxsixt = int(input("Which pair do you want to gamble on e.g[e,f,g,h,i,j]? Type 1 number if you need guidance"))
-            issecure = self.sixsecurechecker(self.pxsixt)
+            sixt1 = int(input("Which pair do you want to gamble on e.g[1,2,3,4,5,6]? Type the lowest number : "))
+            sixt2 = int(input("Type the 2nd number of the string : "))
+            sixt3 = int(input("Type the 3rd number of the string : "))
+            sixt4 = int(input("Type the 4th number of the string : "))
+            sixt5 = int(input("Type the 5th number of the string : "))
+            sixt6 = int(input("Type the 6th number of the string : "))
+            self.six.append(sixt1)
+            self.six.append(sixt2)
+            self.six.append(sixt3)
+            self.six.append(sixt4)
+            self.six.append(sixt5)
+            self.six.append(sixt6)
+            issecure = self.sixsecurechecker(self.six)
             if issecure is True:
                 return True
             else:
@@ -627,10 +661,10 @@ class Game:
             "--------------------------------------------------------------------------------------------------"
         )
         print(
-            "[1] Single (1:36) | [x] Double (1:18) | [x] Triple (1:12) | [4] Square (1:9) | [x] Six (1:6) "
+            "[1] Single (1:36) | [2] Double (1:18) | [4] Square (1:9) | [6] Six (1:6) "
         )
         print(
-            "[6] Dozen (1:3) | [7] Column (1:3) | [8] Half (1:2) | [9] Even/Odd (1:2) | [0] Color (1:2) "
+            "[0] Color (1:2) | [6] Dozen (1:3) | [7] Column (1:3) | [8] Half (1:2) | [9] Even/Odd (1:2) "
         )
         print(" ")
         print(
