@@ -563,7 +563,7 @@ class Game:
 
     def pairtyper(self):
         self.pxpair = []
-        # self.gamehelper()
+        self.gamehelper()
         try:
             pairnum1 = int(input("Which pair do you want to gamble on e.g[1,2]? Type the lowest number : "))
             pairnum2 = int(input("Now Type the highest number : "))
@@ -579,7 +579,7 @@ class Game:
 
     def squaretyper(self):
         self.square = []
-        # self.gamehelper()
+        self.gamehelper()
         try:
             sqnum1 = int(input("Which square do you want to gamble on e.g[4,5,7,8]? Type the lowest number : "))
             sqnum2 = int(input("Type the second lowest number : "))
@@ -599,7 +599,7 @@ class Game:
 
     def sixtyper(self):
         self.six = []
-        # self.gamehelper()
+        self.gamehelper()
         try:
             sixt1 = int(input("Which pair do you want to gamble on e.g[1,2,3,4,5,6]? Type the lowest number : "))
             sixt2 = int(input("Type the 2nd number of the string : "))
@@ -650,6 +650,23 @@ class Game:
         print(
             "Warning : double / six numbers gambles are not working"
         )
+
+    def gamehelper(self):
+        print("–––––––––––––––––––––––––––––––––––––––––––––––––--––––––––––––––––––––––––")
+        print("Game Table :")
+        print("––––––––––––––––––––––––––––––––––––––––--------––––––––")
+        print(
+            "3 | 6 | 9 | 12 | 15 | 18 | 21 | 24 | 27 | 30 | 33 | 36 |"
+        )
+        print("––––––––––––––––––––––––––––––––––––––––--------––––––––")
+        print(
+            "2 | 5 | 8 | 11 | 14 | 17 | 20 | 23 | 26 | 29 | 32 | 35 |"
+        )
+        print("––––––––––––––––––––––––––––––––––––––––--------––––––––")
+        print(
+            "1 | 4 | 7 | 10 | 13 | 16 | 19 | 22 | 25 | 28 | 31 | 34 |"
+        )
+        print("–––––––––––––––––––––––––––––––––––––––––––––––––--––––––––––––––––––––––––")
 
     # Game infos & MenuLater
     def gameinfo(self):
