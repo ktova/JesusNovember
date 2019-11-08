@@ -135,28 +135,28 @@ class Game:
     def winopinfo(self, winop):
         print("The winning number is : " + str(winop))
         print(
-            "Infos - Color: "
+            "- Infos - \nColor: "
             + str(self.co)
-            + " | "
+            + " |\n"
             + "Even : "
             + str(self.ode)
-            + " | "
+            + " |\n"
             + "Half : "
             + str(self.alf)
-            + " | "
-            + " Dozen number "
+            + " |\n"
+            + "Dozen number "
             + str(self.doz)
-            + " | "
-            + " Column number "
+            + " |\n"
+            + "Column number "
             + str(self.col)
-            + "| Pairs : "
+            + "|\nPairs : "
             + str(self.spr)
-            + "| Square(s) : "
+            + "|\nSquare(s) : "
             + str(self.sqr)
-            + "| Six(s) : "
+            + "|\nSix(s) : "
             + str(self.sxt)
+            + "\n"
         )
-        # print double et squares
 
     ###########################
     ###The Results Functions##
@@ -176,14 +176,15 @@ class Game:
         self.comparearr()
 
     def comparearr(self):
-        print(self.resultarray.items())
-        print(self.gamblify.items())
+        print("List of gamble(s):\n")
+        for a in self.gamblify.items():
+            print(str(a[0]) + " - Value: " + str(a[1][0]) + " - Tokens: " + str(a[1][1]) + " - Multipler: " + str(a[1][2]))
         for i in self.resultarray.items():
             for l in self.gamblify.items():
-                if l[0] in i:
-                    gains = l[1][0]*l[1][1]
+                if l[1][0] in i:
+                    gains = l[1][1]*l[1][2]
                     self.tokens += gains
-                    print(str(i[0]) + " - " + str(l[0]) + " - " + str(l[1][0]) + "-" + str(l[1][1]) )
+                    print(str(i[0]) + " - " + str(l[0]) + " - " + str(l[1][1]) + "-" + str(l[1][2]) )
                 else:
                     pass
 
@@ -253,7 +254,7 @@ class Game:
             print("You are gambling on color " + str(self.pxcolor))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxcolor, self.tokenmise, self.context)
+                self.addgamble("Color", self.pxcolor, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -267,7 +268,7 @@ class Game:
             print("You are gambling on half " + str(self.pxhalf))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxhalf, self.tokenmise, self.context)
+                self.addgamble("Half", self.pxhalf, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -281,7 +282,7 @@ class Game:
             print("You are gambling on " + str(self.pxodev) + " numbers")
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxodev, self.tokenmise, self.context)
+                self.addgamble("Odd/Even", self.pxodev, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -296,7 +297,7 @@ class Game:
             validarray = self.confirmise()
             if validarray is True:
                 self.pxdoz = "d" + str(self.pxdoz)
-                self.addgamble(self.pxdoz, self.tokenmise, self.context)
+                self.addgamble("Dozen", self.pxdoz, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -311,7 +312,7 @@ class Game:
             validarray = self.confirmise()
             if validarray is True:
                 self.pxcol = "c" + str(self.pxcol)
-                self.addgamble(self.pxcol, self.tokenmise, self.context)
+                self.addgamble("Column", self.pxcol, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -325,7 +326,7 @@ class Game:
             print("You are gambling on number " + str(self.pxnumber))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxnumber, self.tokenmise, self.context)
+                self.addgamble("Single", self.pxnumber, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -339,7 +340,7 @@ class Game:
             print("You are gambling on pair " + str(self.pxpair))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.pxpair, self.tokenmise, self.context)
+                self.addgamble("Pairs", self.pxpair, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -353,7 +354,7 @@ class Game:
             print("You are gambling on square " + str(self.square))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.square, self.tokenmise, self.context)
+                self.addgamble("Square", self.square, self.tokenmise, self.context)
             else:
                 pass
         else:
@@ -367,15 +368,15 @@ class Game:
             print("You are gambling on sixs " + str(self.six))
             validarray = self.confirmise()
             if validarray is True:
-                self.addgamble(self.six, self.tokenmise, self.context)
+                self.addgamble("Six", self.six, self.tokenmise, self.context)
             else:
                 pass
         else:
             self.sixtpicker()
 
     # Add a gamble dict key
-    def addgamble(self, number, bet, multipler):
-        self.gamblify[number] = bet, multipler
+    def addgamble(self, name, number, bet, multipler):
+        self.gamblify[name] = number, bet, multipler
 
     ###############################
     ###The Securecheck Functions##
@@ -645,7 +646,7 @@ class Game:
         )
         print("")
         print(
-            "The playable formats are listed bellow [Type format's number or name]: "
+            "The playable formats are listed bellow [Type format's name to play]: "
         )
         print(
             "Warning : double / six numbers gambles are not working"
@@ -674,10 +675,10 @@ class Game:
             "--------------------------------------------------------------------------------------------------"
         )
         print(
-            "[1] Single (1:36) | [2] Double (1:18) | [4] Square (1:9) | [6] Six (1:6) "
+            "Single (1:36) | Double (1:18) | Square (1:9) | Six (1:6) "
         )
         print(
-            "[0] Color (1:2) | [6] Dozen (1:3) | [7] Column (1:3) | [8] Half (1:2) | [9] Even/Odd (1:2) "
+            "Color (1:2) | Dozen (1:3) | Column (1:3) | Half (1:2) | Even/Odd (1:2) "
         )
         print(" ")
         print(
